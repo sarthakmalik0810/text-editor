@@ -1,0 +1,18 @@
+{
+  "targets": {
+    "texteditorbackend": {
+      "hosting": {
+        "Text-Editor": [
+          "texteditorbackend"
+        ]
+      }
+    },
+    "texteditorbackend-bc222": {
+      "hosting": {
+        "Text-Editor": [
+          "texteditorbackend-bc222"
+        ]
+      }
+    }
+  }
+}
