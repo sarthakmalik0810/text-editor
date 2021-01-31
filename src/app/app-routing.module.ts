@@ -5,12 +5,22 @@ const routes: Routes = [
   {
     path: 'landing',
     loadChildren: () =>
-    import('./landing/landing.module').then((m) => m.LandingModule),
+    import('./modules/landing/landing.module').then((m) => m.LandingModule),
   },
   {
     path: 'login',
     loadChildren: () =>
-    import('./login/login.module').then((m) => m.LoginModule),
+    import('./modules/login/login.module').then((m) => m.LoginModule),
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+    import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
+  },
+  {
+    path: 'editor',
+    loadChildren: () =>
+    import('./modules/editor/editor.module').then(m => m.EditorModule),
   },
   {
     path: '',
