@@ -1,6 +1,78 @@
-<div class="text-center">
+<!-- <div class="text-center">
     <button class="btn btn-default" [routerLink]="['/dashboard']">GO TO DASHBOARD</button>
 </div>
 <div class="text-center">
-    <button class="btn btn-default" (click)="navigateToEditor()">GO TO EDITOR</button>
-</div>
+    <button class="btn btn-default" (click)="navigateToEditor()">GO TO EDITOR</button> -->
+<!-- </div> -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
+<section class="top-bar">
+  <p class="logo">texty</p>
+  <nav class="nav-links">
+    <ul>
+      <li (click)="scrollToElement(contact)">Contact Us</li>
+      <li><a href="#">Login / Signup</a></li>
+    </ul>
+  </nav>
+</section>
+<section class="intro">
+  <div class="intro-row">
+    <div>
+      <h2>Lorem, ipsum.</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
+        perferendis corporis dolores officiis fuga at.
+      </p>
+    </div>
+    <img src="assets/images/text-field-landing.svg" alt="" />
+  </div>
+  <div class="intro-row second">
+    <img src="assets/images/access-anywhere-landing.svg" alt="" />
+    <div>
+      <h2>Lorem, ipsum.</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
+        perferendis corporis dolores officiis fuga at.
+      </p>
+      <br />
+      <button class="app">Go To Editor</button>
+    </div>
+  </div>
+</section>
+<section class="contact" #contact>
+  <div class="contact-div">
+    <div class="hire">WE ARE OPEN TO WORK!</div>
+    <div class="linkedin">
+      <div class="avatar" style="background-image: url(assets/images/mayank-profile.jpeg);"></div>
+      <div class="l-name">Mayank Sethi</div>
+      <div class="l-tag">Full Stack Web Developer at Infosys</div>
+      <div class="linkedin-btn" (click)="openInNewWindow(mayankURL)">
+        <img
+          style="width: 100px"
+          src="assets/images/LinkedIn-Logo.wine.svg"
+          alt=""
+        />
+      </div>
+    </div>
+    <div class="linkedin">
+      <div class="avatar" style="background-image: url(assets/images/sarthak-profile.jpg);"></div>
+      <div class="l-name">Sarthak Malik</div>
+      <div class="l-tag">Web Developer @ Infosys | JS | Angular</div>
+      <div class="linkedin-btn" (click)="openInNewWindow(sarthakURL)">
+        <img
+          src="assets/images/LinkedIn-Logo.wine.svg"
+          alt=""
+        />
+      </div>
+    </div>
+  </div>
+</section>
