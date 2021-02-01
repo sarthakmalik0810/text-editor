@@ -50,6 +50,10 @@ export class LoginComponent implements OnInit {
       });
     })
   }
+
+  openModal(template) {
+    
+  }
   
 
 }

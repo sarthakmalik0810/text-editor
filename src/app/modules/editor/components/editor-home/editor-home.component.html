@@ -1,1 +1,87 @@
-<p>editor-home works!</p>
+<div class="full-page bodybg-color">
+   
+    <div class="d-flex justify-content-center">
+        <mat-toolbar color="#000000">
+            <mat-toolbar-row>
+                <span contenteditable>
+                    <h4>Untitled Document</h4>
+                </span>
+                <span>&nbsp;&nbsp;</span>
+              <span>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('bold');"><i class="fas fa-bold"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('italic');"><i class="fas fa-italic"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('underline');"><i class="fas fa-underline"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('strikeThrough');"><i class="fas fa-strikethrough"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('justifyLeft');"><i class="fas fa-align-left"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('justifyRight');"><i class="fas fa-align-right"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('justifyCenter');"><i class="fas fa-align-center"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('justifyFull');"><i class="fas fa-align-justify"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('cut');"><i class="fas fa-cut"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('paste');"><i class="fas fa-paste"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('copy');"><i class="fas fa-copy"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('indent');"><i class="fas fa-indent"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('outdent');"><i class="fas fa-outdent"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('subscript');"><i class="fas fa-subscript"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('superscript');"><i class="fas fa-superscript"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('undo');"><i class="fas fa-undo"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('redo');"><i class="fas fa-redo"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('insertUnorderedList');"><i class="fas fa-list-ul"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('insertOrderedList');"><i class="fas fa-list-ol"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('insertParagraph');"><i class="fas fa-paragraph"></i></button>
+                <select (change)="execCmdWithArgs('formatBlock', $event.target.value)">
+                    <option value="H1">H1</option>
+                    <option value="H2">H2</option>
+                    <option value="H3">H3</option>
+                    <option value="H4">H4</option>
+                    <option value="H5">H5</option>
+                    <option value="H6">H6</option>
+                </select>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('inSertHorizontalRule');">HR</button>
+                <!-- <button class="btn btn-default" style="color:white" (click)="execCmdWithArgs('createLink', prompt(''));"><i class="fas fa-link"></i></button> -->
+                <button class="btn btn-default" style="color:white" (click)="execCmd('');"><i class="fas fa-unlink"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="toggleSource();"><i class="fas fa-code"></i></button>
+                <select (change)="execCmdWithArgs('fontName', $event.target.value)">
+                  <option value="Arial">Arial</option>
+                  <option value="Comic Sans MS">Comic Sans MS</option>
+                  <option value="Courier">Courier</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Tahoma">Tahoma</option>
+                  <option value="Times New Roman">Times New Roman</option>
+                  <option value="Verdana">Verdana</option>
+                </select>
+                <select (change)="execCmdWithArgs('fontSize', $event.target.value)">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                </select>
+              </span>
+
+             
+              <span class="example-spacer"></span>
+              <button class="btn btn-default" style="color:white">SAVE</button>
+            </mat-toolbar-row>
+              <mat-toolbar-row>
+                <span>
+                  Text Color: <input type="color" (change)="execCmdWithArgs('foreColor', $event.target.value)">
+                  Background: <input type="color" (change)="execCmdWithArgs('hiliteColor', $event.target.value)">
+                <button class="btn btn-default" style="color:white" (click)="execCmd('');"><i class="fas fa-file-image"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="execCmd('selectAll');">Select All</button>
+                </span>
+              </mat-toolbar-row>
+          </mat-toolbar>
+    </div>
+
+      <div class="d-flex justify-content-center" style="height: 90%">
+        <iframe  name="textEditor" class="text-editor">
+        <body></body>
+      </iframe>
+      </div>
+</div>

@@ -1,0 +1,19 @@
+.bodybg-color {
+    background-color: #484848;
+}
+
+.full-page{
+    width:100%;
+    height: 100%
+}
+
+.text-editor{
+    width: 80%; 
+    height: 100%; 
+    background-color: white;
+    margin-top: 50px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+  }

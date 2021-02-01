@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
-import { IUsers } from 'src/app/interfaces/i-users';
-import { UsersFirebaseService } from '../../../../services/users-firebase.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing',
@@ -11,7 +8,20 @@ import { UsersFirebaseService } from '../../../../services/users-firebase.servic
   styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
-  ngOnInit(){
-    
+
+  validatingForm: FormGroup;
+  constructor(private router: Router
+    ){
   }
+  ngOnInit(){
+    this.validatingForm = new FormGroup({
+      loginFormModalEmail: new FormControl('', Validators.email),
+      loginFormModalPassword: new FormControl('', Validators.required)
+    });
+  }
+
+  navigateToEditor(){
+    this.router.navigate(['/editor'], {queryParams: {user: 'no_user'}});
+  }
+
 }
