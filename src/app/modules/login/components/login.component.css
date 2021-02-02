@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none !important;
+  color: #ffffff;
+}
+
+a:hover {
+  color: aliceblue;
+}
+
+.top-bar {
+  width: 100%;
+  height: 8vh;
+  background-color: #212121;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rem 1rem;
+  position: fixed;
+  z-index: 100;
+  /* background-image: radial-gradient( circle 465px at -15.1% -25%,  rgba(17,130,193,1) 0%, rgba(67,166,238,1) 49%, rgba(126,203,244,1) 90.2% );; */
+}
+
+ul > li:hover {
+  cursor: pointer;
+}
+
+.register-now {
+  color: aliceblue;
+}
+
+.link:hover {
+  color: cornflowerblue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.logo {
+  display: inline-block;
+  margin: 0;
+  height: 3rem;
+  font-family: "Oswald", sans-serif;
+  font-weight: 300;
+  font-size: 3rem;
+  color: #ffffff;
+  padding-top: 6px;
+}
+
+.intro {
+  height: 100vh;
+  background-color: #000000;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg %3E%3Cpolygon fill='%23222222' points='800 100 0 200 0 800 1600 800 1600 200'/%3E%3Cpolygon fill='%23444444' points='800 200 0 400 0 800 1600 800 1600 400'/%3E%3Cpolygon fill='%23666666' points='800 300 0 600 0 800 1600 800 1600 600'/%3E%3Cpolygon fill='%23888888' points='1600 800 800 400 0 800'/%3E%3Cpolygon fill='%23aaaaaa' points='1280 800 800 500 320 800'/%3E%3Cpolygon fill='%23cccccc' points='533.3 800 1066.7 800 800 600'/%3E%3Cpolygon fill='%23EEE' points='684.1 800 914.3 800 800 700'/%3E%3C/g%3E%3C/svg%3E");
+  background-attachment: fixed;
+  background-size: cover;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  background-color: #212121;
+  border: 0.2px solid  #26418f;
+  height: 600px;
+  width: 400px;
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 10px;
+}
+
+.input-field {
+  border-radius: 500px;
+  border: grey 1px solid;
+  box-sizing: border-box;
+  display: block;
+  width: 80%;
+  height: 3rem;
+  padding: 14px;
+  font-size: 0.95rem;
+  background-color: #212121;
+  color: #ffffff;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: aliceblue;
+}
+
+.login-form-container {
+  display: flex;
+  height: 300px;
+  margin-top: 100px;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.login-btn {
+  background-color: #26418f;
+  border-radius: 20px;
+  color: aliceblue;
+  border: none;
+  width: 50%;
+  height: 2rem;
+}
+
+.login-btn:hover {
+  background-color: aliceblue;
+  color: #26418f;
+}

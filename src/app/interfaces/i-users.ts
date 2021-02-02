@@ -1,4 +1,5 @@
 export interface IUsers{
-    userName;
-    password;
+    email;
+    uid;
+    
 }
