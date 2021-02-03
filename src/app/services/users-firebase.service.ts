@@ -10,19 +10,33 @@ import { AngularFireAuth } from '@angular/fire/auth';
   providedIn: 'root',
 })
 export class UsersFirebaseService {
+  user: Observable<any>;
   user$: Observable<IUsers>;
+  userDetails=null;
   constructor(
     private firestore: AngularFirestore,
     private fireauth: AngularFireAuth
   ) {
-    this.user$ = this.fireauth.authState.pipe(
+    this.user$ = fireauth.authState.pipe(
       switchMap((user) => {
         if (user) {
-          return this.firestore.doc<IUsers>(`users/${user.uid}`).valueChanges();
+          return firestore.doc<IUsers>(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
         }
       })
+    );
+    this.user = fireauth.authState;
+    this.user.subscribe(
+      (user) => {
+        if (user) {
+          this.userDetails = user;
+          console.log(this.userDetails);
+        }
+        else {
+          this.userDetails = null;
+        }
+      }
     );
   }
 
@@ -43,6 +57,15 @@ export class UsersFirebaseService {
     }
 
     return userRef.set(data, {merge: true});
+  }
+
+  isLoggedIn() {
+    if(this.userDetails === null) {
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 
   async signIn(email, password) {

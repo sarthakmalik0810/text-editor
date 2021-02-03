@@ -14,9 +14,9 @@
   <nav class="nav-links">
     <ul>
       <li (click)="scrollToElement(contact)">Contact Us</li>
-      <li *ngIf="userService.user$ | async; else login "><a (click)="logout()">Logout</a></li>
-      <ng-template #login>
-        <li><a routerLink="/login">Login/SignUp</a></li>
+      <li *ngIf="userService.user$ | async; else loginButton "><a (click)="logout()">Logout</a></li>
+      <ng-template #loginButton>
+        <li><a routerLink='/login'>Login/SignUp</a></li>
       </ng-template>
     </ul>
   </nav>

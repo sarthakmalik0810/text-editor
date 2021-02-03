@@ -16,7 +16,7 @@ export class LandingComponent implements OnInit {
   sarthakURL = 'https://www.linkedin.com/in/sarthak-malik-b91725199/';
   mayankURL = 'https://www.linkedin.com/in/mayank-sethi-88879116b/';
   user: IUsers;
-  constructor(public userService: UsersFirebaseService, private snackbar: MatSnackBar) {
+  constructor(public userService: UsersFirebaseService, private snackbar: MatSnackBar, private router: Router) {
   }
 
   ngOnInit(): void {}
@@ -37,6 +37,9 @@ export class LandingComponent implements OnInit {
     }
   }
 
+  loginRoute() {
+    this.router.navigate(['/login']);
+  }
   
   openSnackBar(message: string) {
     this.snackbar.open(message, 'X', { duration: 2000 });

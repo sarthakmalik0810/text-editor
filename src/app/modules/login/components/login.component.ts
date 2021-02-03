@@ -10,6 +10,7 @@ import {
 import { UsersFirebaseService } from 'src/app/services/users-firebase.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
     private usersFirebaseService: UsersFirebaseService,
     private formBuilder: FormBuilder,
     private snackbar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private snackbarService: SnackbarService
   ) {}
 
   async signInHandler() {
@@ -36,7 +38,7 @@ export class LoginComponent implements OnInit {
         this.login.controls.email.errors?.required ||
         this.login.controls.email.invalid
       ) {
-        this.openSnackBar('Please enter valid Email');
+        this.snackbarService.open('Please enter valid email');
         return;
       } else if (this.login.controls.password.errors?.required) {
         this.openSnackBar('Please enter a Password');
