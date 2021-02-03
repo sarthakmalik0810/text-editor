@@ -9,10 +9,11 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment.prod';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FourOFourComponent } from './components/four-o-four/four-o-four.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, FourOFourComponent
   ],
   imports: [
     BrowserModule,
