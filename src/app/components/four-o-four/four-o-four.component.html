@@ -1,5 +1,5 @@
 <section class="top-bar">
-  <p class="logo">texty</p>
+  <p class="logo" routerLink='/landing'>texty</p>
   <nav class="nav-links">
     <ul>
       <li *ngIf="userService.user$ | async; else loginButton "><a (click)="logout()">Logout</a></li>

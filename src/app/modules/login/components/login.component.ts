@@ -91,14 +91,14 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.usersFirebaseService.getUsers().subscribe((res: any) => {
-      this.arr = res.map(item => {
-        return {
-          id: item.payload.doc.id,
-          ...item.payload.doc.data()}
-      })
-      console.log(this.arr);
-    })
+    // this.usersFirebaseService.getUsers().subscribe((res: any) => {
+    //   this.arr = res.map(item => {
+    //     return {
+    //       id: item.payload.doc.id,
+    //       ...item.payload.doc.data()}
+    //   })
+    //   console.log(this.arr);
+    // })
     this.initLoginForm();
     this.initSignUpForm();
   }
