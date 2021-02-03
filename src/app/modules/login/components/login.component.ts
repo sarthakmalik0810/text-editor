@@ -84,6 +84,8 @@ export class LoginComponent implements OnInit {
 
   toggleForm() {
     this.signInForm = !this.signInForm;
+    this.login.reset();
+    this.signUp.reset();
   }
 
   ngOnInit(): void {
