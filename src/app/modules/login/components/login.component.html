@@ -62,7 +62,7 @@
        </table> -->
 
 <section class="top-bar">
-  <p class="logo">texty</p>
+  <p routerLink='/landing' class="logo">texty</p>
 </section>
 <section class="intro">
   <div class="login-card">
@@ -116,6 +116,9 @@
     </form>
     <div style="text-align: center; color: red;" *ngIf="signUp.get('confirmPassword').errors?.mismatch">
       Password Confirmation must match.
+    </div>
+    <div style="text-align: center; color: red;" *ngIf="signUp.get('password').errors?.minlength">
+      Password must be atleast 6 characters
     </div>
   </div>
   

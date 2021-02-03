@@ -64,7 +64,8 @@ export class LoginComponent implements OnInit {
         return;
       } else if (
         this.signUp.controls.password.errors?.required ||
-        this.signUp.controls.confirmPassword.errors?.required
+        this.signUp.controls.confirmPassword.errors?.required ||
+        this.signUp.controls.password.errors?.minLength
       ) {
         this.openSnackBar('Please enter valid password');
         return;
@@ -78,7 +79,7 @@ export class LoginComponent implements OnInit {
     this.foundUsers = [];
     let email = this.signUp.get('email').value;
     let password = this.signUp.get('password').value;
-    this.usersFirebaseService.createUserAuth(email, password);
+    this.validateUser(email, password);
   }
 
   toggleForm() {
@@ -108,7 +109,7 @@ export class LoginComponent implements OnInit {
   initSignUpForm() {
     this.signUp = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, this.passwordCheck()]],
     });
   }
@@ -154,7 +155,7 @@ export class LoginComponent implements OnInit {
     this.usersFirebaseService.deleteUser(id);
   }
 
-  findUser(email) {
+  async findUser(email) {
     this.usersFirebaseService.findUser(email).subscribe((res) => {
       res.docs.forEach((element) => {
         this.foundUsers.push(element.data());
@@ -163,24 +164,26 @@ export class LoginComponent implements OnInit {
     err => console.log(err),)
   }
 
-  // validateUser(email,password) {
-  //   this.usersFirebaseService.findUser(email).subscribe((res) => {
-  //     res.docs.forEach((element) => {
-  //       this.foundUsers.push(element.data());
-  //     });
-  //   },
-  //   err => console.log(err),
-  //   () => {
-  //     if(this.foundUsers.length > 0) {
-  //       this.openSnackBar('Email already exists! Please Sign in!');
-  //       return;
-  //     } else {
-  //       // this.addUser(email,password);
-  //       this.openSnackBar('Successfully registered! Kindly login');
-  //       this.signInForm = true;
-  //       this.login.reset();
-  //       this.signUp.reset();
-  //     }
-  //   });
-  // }
+  validateUser(email,password) {
+    this.usersFirebaseService.findUser(email).subscribe((res) => {
+      res.docs.forEach((element) => {
+        this.foundUsers.push(element.data());
+      });
+    },
+    err => console.log(err),
+    () => {
+      if(this.foundUsers.length > 0) {
+        this.openSnackBar('Email already exists! Please Sign in!');
+        return;
+      } else {
+        // this.addUser(email,password);
+        this.usersFirebaseService.createUserAuth(email, password);
+        this.openSnackBar('Successfully registered! Kindly login');
+        this.signInForm = true;
+        this.login.reset();
+        this.signUp.reset();
+        this.router.navigate(['/dashboard']);
+      }
+    });
+  }
 }

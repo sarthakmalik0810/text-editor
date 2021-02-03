@@ -89,7 +89,7 @@ export class UsersFirebaseService {
   findUser(userId) {
     return this.firestore
       .collection(STORES.USERS, (users) =>
-        users.where('userName', '==', userId)
+        users.where('email', '==', userId)
       )
       .get();
   }

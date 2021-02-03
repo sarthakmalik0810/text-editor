@@ -41,8 +41,14 @@ ul > li:hover {
   font-weight: 300;
   font-size: 3rem;
   color: #ffffff;
+  transition: all 0.5s ease-in-out;
   padding-top: 6px;
 }
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
 
 .nav-links {
   list-style: none;
@@ -152,6 +158,11 @@ ul > li:hover {
   flex-direction: column;
   align-items: center;
   padding: 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.linkedin:hover {
+  transform: scale(1.1);
 }
 
 .linkedin-btn {
