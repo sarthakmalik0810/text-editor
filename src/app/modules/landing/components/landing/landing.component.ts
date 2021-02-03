@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { IUsers } from 'src/app/interfaces/i-users';
+import { UsersFirebaseService } from '../../../../services/users-firebase.service';
 
 @Component({
   selector: 'app-landing',
@@ -10,9 +15,9 @@ import { Router } from '@angular/router';
 export class LandingComponent implements OnInit {
   sarthakURL = 'https://www.linkedin.com/in/sarthak-malik-b91725199/';
   mayankURL = 'https://www.linkedin.com/in/mayank-sethi-88879116b/';
-  constructor(
-    private router: Router
-  ) {}
+  user: IUsers;
+  constructor(public userService: UsersFirebaseService, private snackbar: MatSnackBar) {
+  }
 
   ngOnInit(): void {}
 
@@ -25,8 +30,15 @@ export class LandingComponent implements OnInit {
     element.scrollIntoView({behavior: "smooth", block: "start", inline:"nearest"})
   }
 
-  navigateToEditor(){
-    this.router.navigate(['/editor'], {queryParams: {user: 'no_user'}});
+  async logout() {
+    let account = await this.userService.signOut();
+    if(account.bool) {
+      this.openSnackBar('Logged Out');
+    }
   }
 
+  
+  openSnackBar(message: string) {
+    this.snackbar.open(message, 'X', { duration: 2000 });
+  }
 }

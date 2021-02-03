@@ -156,9 +156,11 @@ ul > li:hover {
 
 .linkedin-btn {
   border-radius: 5px;
+  background-color: #fff;
+
 }
 .linkedin-btn:hover {
-  background-color: #fff;
+  background-color: aliceblue;
   cursor: pointer;
 }
 
@@ -169,7 +171,6 @@ ul > li:hover {
 .avatar {
   /* This image is 687 wide by 1024 tall, similar to your aspect ratio */
   background-image: url("http://i.stack.imgur.com/Dj7eP.jpg");
-
   /* make a square container */
   width: 150px;
   height: 150px;

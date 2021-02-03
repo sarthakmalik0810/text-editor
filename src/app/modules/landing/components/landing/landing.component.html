@@ -14,7 +14,10 @@
   <nav class="nav-links">
     <ul>
       <li (click)="scrollToElement(contact)">Contact Us</li>
-      <li><a href="#">Login / Signup</a></li>
+      <li *ngIf="userService.user$ | async; else login "><a (click)="logout()">Logout</a></li>
+      <ng-template #login>
+        <li><a routerLink="/login">Login/SignUp</a></li>
+      </ng-template>
     </ul>
   </nav>
 </section>
@@ -48,7 +51,7 @@
     <div class="linkedin">
       <div class="avatar" style="background-image: url(assets/images/mayank-profile.jpeg);"></div>
       <div class="l-name">Mayank Sethi</div>
-      <div class="l-tag">Full Stack Web Developer at Infosys</div>
+      <div class="l-tag">Web Developer at Infosys</div>
       <div class="linkedin-btn" (click)="openInNewWindow(mayankURL)">
         <img
           style="width: 100px"
