@@ -1,0 +1,78 @@
+.cards-container {
+    display: flex;
+    justify-content:left;
+    flex-flow:wrap;
+}
+  .dashboard-card{
+    height: 300px;
+    flex-basis: 15%;
+    margin:10px;
+    justify-content: center;
+    background-color: white;
+  }
+
+  .full-page{
+    width:100%;
+    height: auto;
+    position: relative;
+}
+
+
+
+  @media only screen and (max-width: 480px) {
+    .dashboard-card{
+        height: 300px;
+        flex-basis: 90%;
+        margin:auto;
+        margin-top: 10px;
+        background-color: white;
+        /* justify-content: center; */
+      }
+
+      
+  }
+
+  @media only screen and (device-width: 768px) {
+    .dashboard-card{
+        height: 300px;
+        flex-basis: 45%;
+        margin:auto;
+        margin-top: 10px;
+        background-color: white;
+        /* justify-content: center; */
+      }
+      .full-page{
+        width:100%;
+        height: 100vh;
+        position: relative;
+    }
+
+  }
+
+
+  .icon{
+    font-size: 100px;
+    cursor: pointer;
+  }
+
+  .plus {
+      display:table;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: auto;
+      margin-bottom: auto;
+      vertical-align: middle;
+      top: 30%;
+      position: relative;
+  }
+
+
+
+  
+
+
+  .intro {
+    height: 100vh;
+    background: #484848;
+    width: 100%;
+  }
