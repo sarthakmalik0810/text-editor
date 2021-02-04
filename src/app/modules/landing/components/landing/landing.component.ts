@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { IUsers } from 'src/app/interfaces/i-users';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 import { UsersFirebaseService } from '../../../../services/users-firebase.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class LandingComponent implements OnInit {
   sarthakGit = 'https://github.com/sarthakmalik0810';
   mayankGit = 'https://github.com/mayanksethi97';
   user: IUsers;
-  constructor(public userService: UsersFirebaseService, private snackbar: MatSnackBar, private router: Router) {
+  constructor(public userService: UsersFirebaseService, private snackbar: MatSnackBar, private router: Router, private snackbarService: SnackbarService) {
   }
 
   ngOnInit(): void {}
@@ -35,7 +36,7 @@ export class LandingComponent implements OnInit {
   async logout() {
     let account = await this.userService.signOut();
     if(account.bool) {
-      this.openSnackBar('Logged Out');
+      this.snackbarService.openSnackbarWithStyle('Logged out!','red-snackbar');
     }
   }
 

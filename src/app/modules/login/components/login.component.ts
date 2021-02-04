@@ -43,10 +43,10 @@ export class LoginComponent implements OnInit {
         this.login.controls.email.errors?.required ||
         this.login.controls.email.invalid
       ) {
-        this.snackbarService.open('Please enter valid email');
+        this.snackbarService.openSnackbarWithStyle('Please enter valid email', 'red-snackbar');
         return;
       } else if (this.login.controls.password.errors?.required) {
-        this.openSnackBar('Please enter a Password');
+        this.snackbarService.openSnackbarWithStyle('Please enter a Password', 'red-snackbar');
         return;
       }
     }
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
       }
     }
     else {
-      this.openSnackBar(res.error);
+      this.snackbarService.openSnackbarWithStyle(res.error, 'red-snackbar');
     }
   }
 
@@ -73,19 +73,19 @@ export class LoginComponent implements OnInit {
         this.signUp.controls.email.errors?.required ||
         this.signUp.controls.email.invalid
       ) {
-        this.openSnackBar('Please enter valid Email');
+        this.snackbarService.openSnackbarWithStyle('Please enter valid Email', 'red-snackbar');
         return;
       } else if (
         this.signUp.controls.password.errors?.required ||
         this.signUp.controls.confirmPassword.errors?.required ||
         this.signUp.controls.password.errors?.minLength
       ) {
-        this.openSnackBar('Please enter valid password');
+        this.snackbarService.openSnackbarWithStyle('Please enter valid password', 'red-snackbar');
         return;
       } else if (
         this.signUp.get('password') !== this.signUp.get('confirmPassword')
       ) {
-        this.openSnackBar("Passwords don't match");
+        this.snackbarService.openSnackbarWithStyle("Passwords don't match", 'red-snackbar');
         return;
       }
     }
@@ -185,12 +185,12 @@ export class LoginComponent implements OnInit {
     err => console.log(err),
     () => {
       if(this.foundUsers.length > 0) {
-        this.openSnackBar('Email already exists! Please Sign in!');
+        this.snackbarService.openSnackbarWithStyle('Email already exists! Please Sign in!', 'red-snackbar');
         return;
       } else {
         // this.addUser(email,password);
         this.usersFirebaseService.createUserAuth(email, password);
-        this.openSnackBar('Successfully registered! Kindly login');
+        this.snackbarService.openSnackbarWithStyle('Successfully registered! Kindly login', 'green-snackbar');
         this.signInForm = true;
         this.login.reset();
         this.signUp.reset();
