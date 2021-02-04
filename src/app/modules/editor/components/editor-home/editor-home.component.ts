@@ -38,7 +38,7 @@ export class EditorHomeComponent implements OnInit, OnDestroy {
   ]
 
   fontSizes = [
-    3, 4, 5, 8, 9, 10, 11, 12, 14, 18, 24, 30, 36, 48, 60, 72, 96
+    3, 4, 5, 8, 9, 10, 11, 12, 14
   ]
 
   //buttons
@@ -69,15 +69,18 @@ export class EditorHomeComponent implements OnInit, OnDestroy {
   mode;
   subs: Subscription[] = [];
   saved = false;
+  lastSaved;
+
+  cutSelection;
 
  
   ngOnInit(): void {
     this.editorPane = document.getElementsByTagName('iframe')[0].contentDocument || document.getElementsByTagName('iframe')[0].contentWindow.document;
     this.editorPane.getElementsByTagName('body')[0].style.wordBreak = 'break-word';
+    this.editorPane.getElementsByTagName('body')[0].style.fontFamily = 'Times New Roman';
     this.documentName = this.defaultDocumentName;
     const qp = this.ar.snapshot.queryParams;
       this.mode = qp.mode;
-      console.log(qp);
       this.usersFirebaseService.user$.subscribe((res: any) => {
         this.loggedInUser = res;
         if(this.mode === 'get_saved'){
@@ -90,37 +93,27 @@ export class EditorHomeComponent implements OnInit, OnDestroy {
             this.userDocumentService.findDocument(res.docId).subscribe((res) => {
             this.editorPane.getElementsByTagName('body')[0].innerHTML = res.docs[0].data()['htmlString'];
             this.documentName = res.docs[0].data()['documentName'];
+            this.lastSaved = res.docs[0].data()['uploadDate'];
           })
          
         })
         }
       })
-    // this.subs.push(this.userDocumentService.getTakeFromLocalStorage().subscribe((res: any) => {
-    //   console.log(res)
-    // }));
-    // this.setFromLocalstorage()
     this.editorPane.designMode = 'on';
   }
 
   setFromLocalstorage(){
     if(localStorage.getItem('temp_user_html')){
-      console.log(JSON.parse(localStorage.getItem('temp_user_html')))
-      console.log({
-        userId: this.loggedInUser.uid,
-        emailId: this.loggedInUser.email,
-        htmlString: JSON.parse(localStorage.getItem('temp_user_html')).htmlString,
-        documentName: JSON.parse(localStorage.getItem('temp_user_html')).documentName,
-        uploadDate: new Date()
-      })
       this.userDocumentService.addUserDocument({
         userId: this.loggedInUser.uid,
         emailId: this.loggedInUser.email,
         htmlString: JSON.parse(localStorage.getItem('temp_user_html')).htmlString,
         documentName: JSON.parse(localStorage.getItem('temp_user_html')).documentName,
-        uploadDate: new Date()
+        uploadDate:  JSON.parse(localStorage.getItem('temp_user_html')).uploadDate
       }).then(docRef => {
         this.editorPane.getElementsByTagName('body')[0].innerHTML = JSON.parse(localStorage.getItem('temp_user_html')).htmlString;
           this.documentName = JSON.parse(localStorage.getItem('temp_user_html')).documentName;
+          this.lastSaved = JSON.parse(localStorage.getItem('temp_user_html')).uploadDate
         // this.router.navigate([], {relativeTo: this.ar, queryParams: {docId: docRef.id}, queryParamsHandling: 'merge', skipLocationChange: true})
         localStorage.removeItem('temp_user_html');
     })
@@ -133,17 +126,27 @@ export class EditorHomeComponent implements OnInit, OnDestroy {
     if(this.saved === false){
       c = confirm('Your changes are not saved, do you want to save it before navigating to dashboard??');
       if(c){
-        this.userDocumentService.updateUserDocument(this.currentDocument, {htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML, documentName: this.documentName});
+        console.log(c);
+        this.userDocumentService.updateUserDocument(this.currentDocument, {htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML, documentName: this.documentName,
+        uploadDate: new Date().toString()
+      });
         this.snackbarService.openSnackbarWithStyle('Document updated successfully', 'green-snackbar');
-      }
-      else{
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/dashboard']);
       }
     }
   }
 
   execCmd(command){
     this.editorPane.execCommand(command, false, null);
+  }
+
+  cutCopyText(arg){
+    this.cutSelection = this.editorPane.getSelection().toString();
+  }
+
+
+  pasteText(){
+      this.editorPane.execCommand("insertText", false, this.cutSelection);
   }
 
 
@@ -168,9 +171,12 @@ export class EditorHomeComponent implements OnInit, OnDestroy {
 
   saveHTML(){
     if(this.loggedInUser){
+      this.lastSaved = new Date().toString();
       this.saved = true;
       if(this.currentDocument){
-        this.userDocumentService.updateUserDocument(this.currentDocument, {htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML, documentName: this.documentName});
+        this.userDocumentService.updateUserDocument(this.currentDocument, {htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML, documentName: this.documentName,
+        uploadDate: new Date().toString()
+      });
         this.snackbarService.openSnackbarWithStyle('Document updated successfully', 'green-snackbar');
       }
       else{
@@ -187,7 +193,7 @@ export class EditorHomeComponent implements OnInit, OnDestroy {
             emailId: this.loggedInUser.email,
             htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML,
             documentName: this.documentName,
-            uploadDate: new Date()
+            uploadDate: new Date().toString()
           }).then(docRef => {
             this.snackbarService.openSnackbarWithStyle('Document added successfully', 'green-snackbar');
             this.router.navigate([], {relativeTo: this.ar, queryParams: {docId: docRef.id}})
@@ -197,7 +203,7 @@ export class EditorHomeComponent implements OnInit, OnDestroy {
         
     }
     else{
-      const temp_user_data = {htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML, documentName: this.documentName}
+      const temp_user_data = {htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML, documentName: this.documentName, uploadDate: new Date().toString()}
       localStorage.setItem('temp_user_html', JSON.stringify(temp_user_data));
       this.takeFromLocalStorage = true;
       this.snackbarService.openSnackbarWithStyle('You are not loggen in!', 'red-snackbar');
