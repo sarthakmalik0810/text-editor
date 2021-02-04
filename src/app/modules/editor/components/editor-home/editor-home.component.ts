@@ -20,7 +20,13 @@ export class EditorHomeComponent implements OnInit, OnDestroy {
     private router: Router,
     private snackbarService: SnackbarService
     
-  ) {}
+  ) {
+    if (window.matchMedia("(orientation: portrait)").matches) {
+      // you're in PORTRAIT mode
+      window.alert('Please switch to landscape view');
+   }
+   
+  }
   
   loggedInUser;
   defaultDocumentName = 'Untitled Document';

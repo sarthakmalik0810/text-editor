@@ -1,15 +1,17 @@
 <div class="full-page bg">
   <div class="d-flex justify-content-center">
-    <mat-toolbar color="#000000" class="resp">
-      <span>
+    <mat-toolbar color="#000000" class="resp" style="display: flex; flex-wrap: wrap;">
+      <mat-toolbar-row>
+      <span  style="display: flex; flex-wrap: wrap;">
         <button mat-raised-button matTooltip="back to dashboard" class="btn btn-default" style="color:white" (click)="checkSaved()"><i class="fas fa-arrow-left"></i></button>
       <input type="text" style="width: 200px; margin: 10px; border: none" value="{{documentName}}" (input)="getDocumentName($event.target.value)">
       <p *ngIf="lastSaved" style="display: inline;">Last saved: {{lastSaved | date : 'medium'}}</p>
       </span>
+    </mat-toolbar-row>
       
         <mat-toolbar-row>
             <span>&nbsp;&nbsp;</span>
-          <span>
+          <span  style="display: flex; flex-wrap: wrap;">
             <button mat-raised-button matTooltip="bold" class="btn" [ngClass]="{'btn-default': bold, 'btn-primary':!bold }" style="color:white" (click)="bold=!bold;execCmd('bold');"><i class="fas fa-bold"></i></button>
             <button mat-raised-button matTooltip="italic" class="btn" [ngClass]="{'btn-default': italic, 'btn-primary':!italic }" style="color:white" (click)="italic=!italic;execCmd('italic');"><i class="fas fa-italic"></i></button>
             <button mat-raised-button matTooltip="underline" class="btn" [ngClass]="{'btn-default': underline, 'btn-primary':!underline }" style="color:white" (click)="underline=!underline;execCmd('underline');"><i class="fas fa-underline"></i></button>
@@ -58,7 +60,7 @@
           <button class="btn btn-default" style="color:white" (click)="saveHTML()">SAVE</button>
         </mat-toolbar-row>
           <mat-toolbar-row>
-            <span>
+            <span  style="display: flex; flex-wrap: wrap;">
               Text Color: <input type="color" (change)="execCmdWithArgs('foreColor', $event.target.value)">
               Background: <input type="color" (change)="execCmdWithArgs('hiliteColor', $event.target.value)">
             <!-- <button class="btn btn-default" style="color:white" (click)="execCmd('');"><i class="fas fa-file-image"></i></button> -->
