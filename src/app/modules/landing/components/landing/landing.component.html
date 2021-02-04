@@ -14,8 +14,10 @@
   <nav class="nav-links">
     <ul>
       <li (click)="scrollToElement(contact)">Contact Us</li>
-      <li *ngIf="userService.user$ | async; else login "><a (click)="logout()">Logout</a></li>
-      <ng-template #login>
+      <li *ngIf="userService.user$ | async; else loginButton">
+        <a (click)="logout()">Logout</a>
+      </li>
+      <ng-template #loginButton>
         <li><a routerLink="/login">Login/SignUp</a></li>
       </ng-template>
     </ul>
@@ -24,11 +26,10 @@
 <section class="intro">
   <div class="intro-row">
     <div>
-      <h2>Lorem, ipsum.</h2>
+      <h2>Texty - The WYSIWYG Editor</h2>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
-        perferendis corporis dolores officiis fuga at.
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic alias maiores reprehenderit, neque quo ullam dignissimos assumenda dicta iure, nisi architecto, nostrum ipsam est. Ex minus voluptas quaerat expedita neque?
+        Rich Text Editor built using Angular, enables you to create documents
+        over the web.
       </p>
     </div>
     <img src="assets/images/text-field-landing.svg" alt="" />
@@ -36,11 +37,10 @@
   <div class="intro-row second">
     <img src="assets/images/access-anywhere-landing.svg" alt="" />
     <div>
-      <h2>Lorem, ipsum.</h2>
+      <h2>Access from anywhere, anytime.</h2>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
-        perferendis corporis dolores officiis fuga at.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, at architecto eveniet distinctio quos delectus saepe cum quas ipsam dolore iure dicta vero perferendis nemo officia, in quaerat facere ad.
+        Login and enable yourself to save and edit your docs on the go from
+        multiple devices.
       </p>
       <br />
       <button class="app" routerLink="/editor">Go To Editor</button>
@@ -51,26 +51,35 @@
   <div class="contact-div">
     <div class="hire">WE ARE OPEN TO WORK!</div>
     <div class="linkedin">
-      <div class="avatar" style="background-image: url(assets/images/mayank-profile.jpeg);"></div>
+      <div
+        class="avatar"
+        style="background-image: url(assets/images/mayank-profile.jpeg)"
+      ></div>
       <div class="l-name">Mayank Sethi</div>
       <div class="l-tag">Web Developer at Infosys</div>
-      <div class="linkedin-btn" (click)="openInNewWindow(mayankURL)">
-        <img
-          style="width: 100px"
-          src="assets/images/LinkedIn-Logo.wine.svg"
-          alt=""
-        />
+      <div class="buttons">
+        <div class="linkedin-btn" (click)="openInNewWindow(mayankURL)">
+          <img src="assets/images/LinkedIn-Logo.wine.svg" alt="" />
+        </div>
+        <div class="linkedin-btn" (click)="openInNewWindow(mayankGit)">
+          <img src="assets/images/GitHub_Logo.png" alt="" />
+        </div>
       </div>
     </div>
     <div class="linkedin">
-      <div class="avatar" style="background-image: url(assets/images/sarthak-profile.jpg);"></div>
+      <div
+        class="avatar"
+        style="background-image: url(assets/images/sarthak-profile.jpg)"
+      ></div>
       <div class="l-name">Sarthak Malik</div>
       <div class="l-tag">Web Developer @ Infosys | JS | Angular</div>
-      <div class="linkedin-btn" (click)="openInNewWindow(sarthakURL)">
-        <img
-          src="assets/images/LinkedIn-Logo.wine.svg"
-          alt=""
-        />
+      <div class="buttons">
+        <div class="linkedin-btn" (click)="openInNewWindow(sarthakURL)">
+          <img src="assets/images/LinkedIn-Logo.wine.svg" alt="" />
+        </div>
+        <div class="linkedin-btn" (click)="openInNewWindow(sarthakGit)">
+          <img src="assets/images/GitHub_Logo.png" alt="" />
+        </div>
       </div>
     </div>
   </div>

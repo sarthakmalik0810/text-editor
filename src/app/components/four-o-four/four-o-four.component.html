@@ -1,0 +1,24 @@
+<section class="top-bar">
+  <p class="logo" routerLink='/landing'>texty</p>
+  <nav class="nav-links">
+    <ul>
+      <li *ngIf="userService.user$ | async; else loginButton "><a (click)="logout()">Logout</a></li>
+      <ng-template #loginButton>
+        <li><a routerLink='/login'>Login/SignUp</a></li>
+      </ng-template>
+    </ul>
+  </nav>
+</section>
+<section class="intro">
+  <div class="text-btn-container">
+    <div class="oops">
+      Aw Jeez! You are lost!
+    </div>
+    <div class="buttons">
+      <div><p class="back" (click)="goBack()">
+        <i class="fas fa-arrow-left"></i> Go Back to the Previous Page</p>
+      </div>
+    </div>
+  </div>
+    <img src="assets/images/undraw_page_not_found_su7k.svg" alt="">
+</section>

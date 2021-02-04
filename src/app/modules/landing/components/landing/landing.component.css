@@ -41,8 +41,14 @@ ul > li:hover {
   font-weight: 300;
   font-size: 3rem;
   color: #ffffff;
+  transition: all 0.5s ease-in-out;
   padding-top: 6px;
 }
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
 
 .nav-links {
   list-style: none;
@@ -152,11 +158,17 @@ ul > li:hover {
   flex-direction: column;
   align-items: center;
   padding: 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.linkedin:hover {
+  transform: scale(1.1);
 }
 
 .linkedin-btn {
   border-radius: 5px;
   background-color: #fff;
+  margin: 0 3px;
 
 }
 .linkedin-btn:hover {
@@ -165,7 +177,7 @@ ul > li:hover {
 }
 
 .linkedin-btn > img {
-  width: 100px;
+  width: 80px;
   height: 30px;
 }
 .avatar {
@@ -196,6 +208,10 @@ ul > li:hover {
   padding-top: 20px;
   color: rgb(192, 192, 192);
   padding-bottom: 10px;
+}
+
+.buttons {
+  display: flex;
 }
 
 @media only screen and (max-width: 480px) {
@@ -252,7 +268,7 @@ ul > li:hover {
   }
 
   .linkedin {
-    height: 200px;
+    height: 210px;
     display: flex;
     flex-direction: column;
   }

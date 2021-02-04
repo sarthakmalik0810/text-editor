@@ -9,10 +9,12 @@ import { environment } from '../environments/environment.prod';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { ConvertToHTMLDirective } from './directives/convert-to-html.directive';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FourOFourComponent } from './components/four-o-four/four-o-four.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, FourOFourComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +25,7 @@ import { ConvertToHTMLDirective } from './directives/convert-to-html.directive';
     AngularFirestoreModule,
     ReactiveFormsModule,
     FormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
