@@ -1,3 +1,4 @@
 export enum STORES {
-    USERS = 'users'
+    USERS = 'users',
+    DOCUMENTS = 'user_documents'
 }

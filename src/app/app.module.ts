@@ -8,6 +8,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment.prod';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { ConvertToHTMLDirective } from './directives/convert-to-html.directive';
 
 @NgModule({
   declarations: [

@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-center">
         <mat-toolbar color="#000000">
             <mat-toolbar-row>
-                <span contenteditable>
+                <span contenteditable (input)="getDocumentName($event.target.innerText)">
                     <h4>Untitled Document</h4>
                 </span>
                 <span>&nbsp;&nbsp;</span>
@@ -66,7 +66,7 @@
 
              
               <span class="example-spacer"></span>
-              <button class="btn btn-default" style="color:white">SAVE</button>
+              <button class="btn btn-default" style="color:white" (click)="saveHTML()">SAVE</button>
             </mat-toolbar-row>
               <mat-toolbar-row>
                 <span>
@@ -74,15 +74,15 @@
                   Background: <input type="color" (change)="execCmdWithArgs('hiliteColor', $event.target.value)">
                 <button class="btn btn-default" style="color:white" (click)="execCmd('');"><i class="fas fa-file-image"></i></button>
                 <button class="btn btn-default" style="color:white" (click)="execCmd('selectAll');">Select All</button>
+                <button class="btn btn-default" style="color:white" (click)="deleteDoc()"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </span>
               </mat-toolbar-row>
           </mat-toolbar>
     </div>
 
-      <div class="d-flex justify-content-center" style="height: 90%">
-        <iframe  name="textEditor" class="text-editor">
+      <div class="d-flex justify-content-center" style="height:100%">
+        <iframe  name="textEditor" class="text-editor" spellcheck="true">
         <body></body>
       </iframe>
-      </div>
 </div>
 

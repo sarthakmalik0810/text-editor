@@ -51,6 +51,7 @@ export class UsersFirebaseService {
       error: ''
     };
     await this.fireauth.signInWithEmailAndPassword(email,password).then(() => {
+      sessionStorage.setItem('loggedin_user', email);
       accountErrorMessage.bool = true;
       return accountErrorMessage;
     }).catch((error => {
@@ -79,6 +80,7 @@ export class UsersFirebaseService {
     }
     await this.fireauth.signOut().then(() => {
       accountErrorMessage.bool = true;
+      sessionStorage.removeItem('loggedin_user');
       return accountErrorMessage;
     }).catch((error) => {
       accountErrorMessage.error = 'Something went wrong';
