@@ -38,7 +38,7 @@
                 </select>
                 <button class="btn btn-default" style="color:white" (click)="execCmd('inSertHorizontalRule');">HR</button>
                 <!-- <button class="btn btn-default" style="color:white" (click)="execCmdWithArgs('createLink', prompt(''));"><i class="fas fa-link"></i></button> -->
-                <button class="btn btn-default" style="color:white" (click)="addLink('');"><i class="fas fa-unlink"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="addLink();"><i class="fas fa-unlink"></i></button>
                 <!-- <button class="btn btn-default" style="color:white" (click)="toggleSource();"><i class="fas fa-code"></i></button> -->
                 <select (change)="execCmdWithArgs('fontName', $event.target.value)">
                   <option value="Arial">Arial</option>
