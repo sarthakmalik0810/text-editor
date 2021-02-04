@@ -140,7 +140,7 @@ export class EditorHomeComponent implements OnInit, OnDestroy {
     this.editorPane.execCommand(command, false, null);
   }
 
-  cutCopyText(arg){
+  cutCopyText(){
     this.cutSelection = this.editorPane.getSelection().toString();
   }
 
