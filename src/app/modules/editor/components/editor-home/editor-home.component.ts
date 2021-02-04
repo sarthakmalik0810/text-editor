@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { UsersFirebaseService } from '../../../../services/users-firebase.service';
 import { UserDocumentsService } from '../../../../services/user-documents.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
   templateUrl: './editor-home.component.html',
   styleUrls: ['./editor-home.component.css']
 })
-export class EditorHomeComponent implements OnInit {
+export class EditorHomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private usersFirebaseService: UsersFirebaseService,
@@ -64,21 +65,81 @@ export class EditorHomeComponent implements OnInit {
   insertParagraph = true;
   inSertHorizontalRule = true;
 
+  takeFromLocalStorage = false;
+  mode;
+  subs: Subscription[] = [];
+  saved = false;
+
  
   ngOnInit(): void {
     this.editorPane = document.getElementsByTagName('iframe')[0].contentDocument || document.getElementsByTagName('iframe')[0].contentWindow.document;
-    this.ar.queryParams.subscribe((res: any) => {
-      this.currentDocument = res.docId;
-      this.userDocumentService.findDocument(this.currentDocument).subscribe((res) => {
-        this.editorPane.getElementsByTagName('body')[0].innerHTML = res.docs[0].data()['htmlString'];
-        this.documentName = res.docs[0].data()['documentName'];
-      })
-      })
+    this.editorPane.getElementsByTagName('body')[0].style.wordBreak = 'break-word';
     this.documentName = this.defaultDocumentName;
-    this.usersFirebaseService.user$.subscribe((res: any) => {
-      this.loggedInUser = res;
-    })
+    const qp = this.ar.snapshot.queryParams;
+      this.mode = qp.mode;
+      console.log(qp);
+      this.usersFirebaseService.user$.subscribe((res: any) => {
+        this.loggedInUser = res;
+        if(this.mode === 'get_saved'){
+          this.setFromLocalstorage()
+        }
+        else{
+          this.ar.queryParams.subscribe((res: any) => {
+            console.log(res);
+            this.currentDocument = res.docId;
+            this.userDocumentService.findDocument(res.docId).subscribe((res) => {
+            this.editorPane.getElementsByTagName('body')[0].innerHTML = res.docs[0].data()['htmlString'];
+            this.documentName = res.docs[0].data()['documentName'];
+          })
+         
+        })
+        }
+      })
+    // this.subs.push(this.userDocumentService.getTakeFromLocalStorage().subscribe((res: any) => {
+    //   console.log(res)
+    // }));
+    // this.setFromLocalstorage()
     this.editorPane.designMode = 'on';
+  }
+
+  setFromLocalstorage(){
+    if(localStorage.getItem('temp_user_html')){
+      console.log(JSON.parse(localStorage.getItem('temp_user_html')))
+      console.log({
+        userId: this.loggedInUser.uid,
+        emailId: this.loggedInUser.email,
+        htmlString: JSON.parse(localStorage.getItem('temp_user_html')).htmlString,
+        documentName: JSON.parse(localStorage.getItem('temp_user_html')).documentName,
+        uploadDate: new Date()
+      })
+      this.userDocumentService.addUserDocument({
+        userId: this.loggedInUser.uid,
+        emailId: this.loggedInUser.email,
+        htmlString: JSON.parse(localStorage.getItem('temp_user_html')).htmlString,
+        documentName: JSON.parse(localStorage.getItem('temp_user_html')).documentName,
+        uploadDate: new Date()
+      }).then(docRef => {
+        this.editorPane.getElementsByTagName('body')[0].innerHTML = JSON.parse(localStorage.getItem('temp_user_html')).htmlString;
+          this.documentName = JSON.parse(localStorage.getItem('temp_user_html')).documentName;
+        // this.router.navigate([], {relativeTo: this.ar, queryParams: {docId: docRef.id}, queryParamsHandling: 'merge', skipLocationChange: true})
+        localStorage.removeItem('temp_user_html');
+    })
+    }
+   
+  }
+
+  checkSaved(){
+    let c;
+    if(this.saved === false){
+      c = confirm('Your changes are not saved, do you want to save it before navigating to dashboard??');
+      if(c){
+        this.userDocumentService.updateUserDocument(this.currentDocument, {htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML, documentName: this.documentName});
+        this.snackbarService.openSnackbarWithStyle('Document updated successfully', 'green-snackbar');
+      }
+      else{
+        this.router.navigate(['/dashboard'])
+      }
+    }
   }
 
   execCmd(command){
@@ -101,8 +162,13 @@ export class EditorHomeComponent implements OnInit {
     this.documentName = docName;
   }
 
+  toggleSaved(r){
+    console.log(r)
+  }
+
   saveHTML(){
     if(this.loggedInUser){
+      this.saved = true;
       if(this.currentDocument){
         this.userDocumentService.updateUserDocument(this.currentDocument, {htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML, documentName: this.documentName});
         this.snackbarService.openSnackbarWithStyle('Document updated successfully', 'green-snackbar');
@@ -127,19 +193,30 @@ export class EditorHomeComponent implements OnInit {
             this.router.navigate([], {relativeTo: this.ar, queryParams: {docId: docRef.id}})
         })
         })
-      
       }
         
     }
     else{
+      const temp_user_data = {htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML, documentName: this.documentName}
+      localStorage.setItem('temp_user_html', JSON.stringify(temp_user_data));
+      this.takeFromLocalStorage = true;
       this.snackbarService.openSnackbarWithStyle('You are not loggen in!', 'red-snackbar');
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login'], {queryParams: {loggedIn: false}, skipLocationChange: true});
     }
   }
 
   deleteDoc(){
+    
     this.userDocumentService.deleteUserDocument(this.currentDocument);
     this.snackbarService.openSnackbarWithStyle('Document deleted Successfully', 'red-snackbar');
     this.router.navigate(['/dashboard'])
+  }
+  
+  ngOnDestroy(){
+    this.subs.forEach(element => {
+      if(element){
+        element.unsubscribe();
+      }
+    });
   }
 }

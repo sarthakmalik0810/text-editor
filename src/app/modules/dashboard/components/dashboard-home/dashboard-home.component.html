@@ -33,11 +33,12 @@
     </mat-card>
     
     <mat-card #doc1 class="example-card dashboard-card" *ngFor="let document of userDocuments" >
-      <div class="plus">
+      <div class="plus" style="color:black;">
         <span class="material-icons icon" (click)="navigateToDocument(document.docId)">
           folder_open
         </span>
-        <h3 style="color:black;">{{document.documentName}}</h3>
+        <h3>{{document.documentName}}</h3>
+        <button mat-raised-button matTooltip="delete" class="btn btn-default" style="float: right;" (click)="deleteDoc(document.docId)"><i class="fa fa-trash" aria-hidden="true"></i></button>
       </div>
         </mat-card>
   </div>

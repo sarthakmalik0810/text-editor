@@ -19,7 +19,8 @@ export class DashboardHomeComponent implements OnInit {
     private usersFirebaseService: UsersFirebaseService,
     private userDocumentsService: UserDocumentsService,
     public userService: UsersFirebaseService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private userDocumentService: UserDocumentsService
   ) { }
 
   loggedInUser;
@@ -63,6 +64,11 @@ export class DashboardHomeComponent implements OnInit {
     this.router.navigate(['/editor'], {queryParams: {docId: docId}});
   }
 
+  deleteDoc(docId){
+    this.userDocumentService.deleteUserDocument(docId);
+    this.snackbarService.openSnackbarWithStyle('Document deleted Successfully', 'red-snackbar');
+    this.getUserDocuments();
+  }
 
     
 }

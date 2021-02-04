@@ -9,8 +9,9 @@ import {
 } from '@angular/forms';
 import { UsersFirebaseService } from 'src/app/services/users-firebase.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import { UserDocumentsService } from '../../../services/user-documents.service';
 
 @Component({
   selector: 'app-login',
@@ -24,12 +25,16 @@ export class LoginComponent implements OnInit {
   signUp: FormGroup;
   login: FormGroup;
 
+  loggedInStatus;
+
   constructor(
     private usersFirebaseService: UsersFirebaseService,
     private formBuilder: FormBuilder,
     private snackbar: MatSnackBar,
     private router: Router,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private ar: ActivatedRoute,
+    private userDocumentService: UserDocumentsService
   ) {}
 
   async signInHandler() {
@@ -49,7 +54,13 @@ export class LoginComponent implements OnInit {
     let password = this.login.get('password').value;
     let res = await this.usersFirebaseService.signIn(email,password);
     if(res.bool) {
-      this.router.navigate(['/dashboard']);
+      if(this.loggedInStatus == 'false'){
+        this.router.navigate(['/editor'], {queryParams: {mode: 'get_saved'}, skipLocationChange: true});
+        this.userDocumentService.setTakeFromLocatlStorage(true);
+      }
+      else{
+        this.router.navigate(['/dashboard']);
+      }
     }
     else {
       this.openSnackBar(res.error);
@@ -91,16 +102,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.usersFirebaseService.getUsers().subscribe((res: any) => {
-    //   this.arr = res.map(item => {
-    //     return {
-    //       id: item.payload.doc.id,
-    //       ...item.payload.doc.data()}
-    //   })
-    //   console.log(this.arr);
-    // })
     this.initLoginForm();
     this.initSignUpForm();
+    this.ar.queryParams.subscribe((res: any) => {
+      this.loggedInStatus = res['loggedIn']
+      console.log(res);
+      console.log(this.loggedInStatus);
+    })
   }
 
   initLoginForm() {

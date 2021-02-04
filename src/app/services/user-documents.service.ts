@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Subject } from 'rxjs';
 import { STORES } from '../constants/app-constants';
 import { IUserDocuments } from '../interfaces/i-user-documents';
 
@@ -12,9 +13,19 @@ export class UserDocumentsService {
     private firestore: AngularFirestore
   ) { }
 
+  public takeFromLocalStorage$ = new Subject<any>();
+
   // getUserDocuments() {
   //   return this.firestore.collection(STORES.DOCUMENTS).snapshotChanges();
   // }
+
+  getTakeFromLocalStorage(){
+    return this.takeFromLocalStorage$;
+  }
+
+  setTakeFromLocatlStorage(bool){
+    this.takeFromLocalStorage$.next(bool);
+  }
 
 
   getUserDocuments(emailId) {
