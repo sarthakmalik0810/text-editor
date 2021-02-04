@@ -1,9 +1,28 @@
-<div class="full-page bodybg-color">
-  <mat-toolbar color="#000000">
-    <span>My App</span>
-    <span class="float-right"></span>
-    <!-- <span *ngIf="loggedInUser">Hi {    {loggedInUser.email}}</span> -->
-  </mat-toolbar>
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
+
+<section class="top-bar">
+  <p routerLink='/landing' class="logo">texty</p>
+  <nav class="nav-links">
+    <ul>
+      <li>Hi {{loggedInUser.email}}</li>
+      <li *ngIf="userService.user$ | async">
+        <a (click)="logout()">Logout</a>
+      </li>
+    </ul>
+  </nav>
+</section>
+<section class="intro">
   <div class="cards-container" *ngIf="userDocuments">
     <mat-card class="example-card dashboard-card">
       <div class="plus">
@@ -15,13 +34,21 @@
     </mat-card>
     
     <mat-card #doc1 class="example-card dashboard-card" *ngFor="let document of userDocuments" >
-        <div  class="text-center" style="color:black;" >
-            <p appConvertToHTML [htmlString]="document.htmlString"></p>
-        </div>
-        <button (click)="navigateToDocument(document.docId)">open</button>
-        
-
-          <mat-card-actions> </mat-card-actions>
+      <div class="plus">
+        <span class="material-icons icon" (click)="navigateToDocument(document.docId)">
+          folder_open
+        </span>
+        <h3 style="color:black;">{{document.documentName}}</h3>
+      </div>
         </mat-card>
   </div>
-</div>
+</section>
+
+<!-- 
+
+<div class="full-page bodybg-color">
+  <section class="top-bar">
+    <p routerLink='/landing' class="logo">texty</p>
+  </section>
+  
+</div> -->

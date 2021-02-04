@@ -48,4 +48,12 @@ export class UserDocumentsService {
     
   }
 
+  findDocumentUsingDocName(docName){
+    return this.firestore
+    .collection(STORES.DOCUMENTS, docs => 
+      docs.where('documentName', '==', docName)
+    )
+    .get()
+  }
+
 }

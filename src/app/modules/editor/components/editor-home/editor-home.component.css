@@ -1,18 +1,21 @@
 
 .text-editor{
-    width: 50%; 
-    height: 80%; 
-    background-color: white;
+    width: 45%; 
+    height: 90%; 
+    background-color: #f7f7f7;
     margin-top: 20px;
-    
+    border:none;
+    padding: 20px;
+    box-shadow: 5px 5px 5px 5px #888;
 }
+
 
 .example-spacer {
     flex: 1 1 auto;
   }
 
   .bodybg-color {
-    background-color: #484848;
+    background-color: white;
 }
 
 .full-page{
@@ -20,3 +23,4 @@
     height: 100%;
     position: relative;
 }
+

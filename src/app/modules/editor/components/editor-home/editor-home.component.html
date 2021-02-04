@@ -1,9 +1,9 @@
-<div class="full-page bodybg-color">
+<div class="full-page bg">
    
     <div class="d-flex justify-content-center">
         <mat-toolbar color="#000000">
             <mat-toolbar-row>
-                <span contenteditable (input)="getDocumentName($event.target.innerText)">
+                <span contenteditable (input)="getDocumentName($event.target.innerText)" style="border-color: white;">
                     <h4>Untitled Document</h4>
                 </span>
                 <span>&nbsp;&nbsp;</span>
@@ -38,8 +38,8 @@
                 </select>
                 <button class="btn btn-default" style="color:white" (click)="execCmd('inSertHorizontalRule');">HR</button>
                 <!-- <button class="btn btn-default" style="color:white" (click)="execCmdWithArgs('createLink', prompt(''));"><i class="fas fa-link"></i></button> -->
-                <button class="btn btn-default" style="color:white" (click)="execCmd('');"><i class="fas fa-unlink"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="toggleSource();"><i class="fas fa-code"></i></button>
+                <button class="btn btn-default" style="color:white" (click)="addLink('');"><i class="fas fa-unlink"></i></button>
+                <!-- <button class="btn btn-default" style="color:white" (click)="toggleSource();"><i class="fas fa-code"></i></button> -->
                 <select (change)="execCmdWithArgs('fontName', $event.target.value)">
                   <option value="Arial">Arial</option>
                   <option value="Comic Sans MS">Comic Sans MS</option>
@@ -72,9 +72,9 @@
                 <span>
                   Text Color: <input type="color" (change)="execCmdWithArgs('foreColor', $event.target.value)">
                   Background: <input type="color" (change)="execCmdWithArgs('hiliteColor', $event.target.value)">
-                <button class="btn btn-default" style="color:white" (click)="execCmd('');"><i class="fas fa-file-image"></i></button>
+                <!-- <button class="btn btn-default" style="color:white" (click)="execCmd('');"><i class="fas fa-file-image"></i></button> -->
                 <button class="btn btn-default" style="color:white" (click)="execCmd('selectAll');">Select All</button>
-                <button class="btn btn-default" style="color:white" (click)="deleteDoc()"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                <button *ngIf="this.currentDocument" class="btn btn-default" style="color:white" (click)="deleteDoc()"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </span>
               </mat-toolbar-row>
           </mat-toolbar>

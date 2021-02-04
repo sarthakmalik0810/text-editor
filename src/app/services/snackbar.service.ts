@@ -11,4 +11,11 @@ export class SnackbarService {
   public open(message: string) {
     this.snackbar.open(message, 'X', { duration: 2000 })
   }
+
+  public openSnackbarWithStyle(message, cssClass){
+    this.snackbar.open(message, 'X', {
+      duration: 3000,
+      panelClass: [cssClass]
+    })
+  }
 }

@@ -25,6 +25,7 @@
     "angular-bootstrap-md": "^10.1.1",
     "bootstrap": "^4.6.0",
     "firebase": "^8.2.5",
+    "lodash": "^4.17.20",
     "mdbootstrap": "^4.19.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
