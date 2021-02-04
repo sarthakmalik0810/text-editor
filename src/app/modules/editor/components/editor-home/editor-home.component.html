@@ -1,7 +1,11 @@
 <div class="full-page bg">
   <div class="d-flex justify-content-center">
     <mat-toolbar color="#000000" class="resp">
+      <span>
+        <button mat-raised-button matTooltip="back to dashboard" class="btn btn-default" style="color:white" [routerLink]="'/dashboard'"><i class="fas fa-arrow-left"></i></button>
       <input type="text" style="width: 200px; margin: 10px; border: none" value="{{documentName}}" (input)="getDocumentName($event.target.value)">
+      </span>
+      
         <mat-toolbar-row>
             <span>&nbsp;&nbsp;</span>
           <span>
