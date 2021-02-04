@@ -25,7 +25,7 @@
   <div class="cards-container" *ngIf="userDocuments">
     <mat-card class="example-card dashboard-card">
       <div class="plus">
-        <span class="material-icons icon" style="color: black" (click)="newDocument()">
+        <span class="material-icons icon folder-icon" style="color: black" (click)="newDocument()">
           add_circle
         </span>
       </div>
@@ -34,7 +34,7 @@
     
     <mat-card #doc1 class="example-card dashboard-card" *ngFor="let document of userDocuments" >
       <div class="plus" style="color:black;">
-        <span class="material-icons icon" (click)="navigateToDocument(document.docId)">
+        <span class="material-icons icon folder-icon" (click)="navigateToDocument(document.docId)">
           folder_open
         </span>
         <h3>{{document.documentName}}</h3>
