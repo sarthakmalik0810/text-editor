@@ -57,7 +57,6 @@ export class DashboardHomeComponent implements OnInit {
       },
       err => console.log(err),)
     }
-    console.log(this.userDocuments);
   }
 
   navigateToDocument(docId){

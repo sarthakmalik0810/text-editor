@@ -64,33 +64,6 @@ export class EditorHomeComponent implements OnInit {
   insertParagraph = true;
   inSertHorizontalRule = true;
 
-  menuItems= [
-    {
-      label: 'Sign Up',
-      icon: 'login'
-    },
-    {
-      label: 'About',
-      icon: 'help'
-    },
-    {
-      label: 'Pricing',
-      icon: 'attach_money'
-    },
-    {
-      label: 'Docs',
-      icon: 'notes'
-    },
-    {
-      label: 'Showcase',
-      icon: 'slideshow'
-    },
-    {
-      label: 'Blog',
-      icon: 'rss_feed'
-    },
-  ];
-
  
   ngOnInit(): void {
     this.editorPane = document.getElementsByTagName('iframe')[0].contentDocument || document.getElementsByTagName('iframe')[0].contentWindow.document;
@@ -131,7 +104,7 @@ export class EditorHomeComponent implements OnInit {
   saveHTML(){
     if(this.loggedInUser){
       if(this.currentDocument){
-        this.userDocumentService.updateUserDocument(this.currentDocument, this.editorPane.getElementsByTagName('body')[0].innerHTML);
+        this.userDocumentService.updateUserDocument(this.currentDocument, {htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML, documentName: this.documentName});
         this.snackbarService.openSnackbarWithStyle('Document updated successfully', 'green-snackbar');
       }
       else{
@@ -140,10 +113,7 @@ export class EditorHomeComponent implements OnInit {
           res.docs.forEach(element => {
             docsWithSameName.push(element.data())
           });
-          console.log(docsWithSameName);
           if(docsWithSameName.length){
-            console.log('inside');
-
             this.documentName = `${this.documentName}(${docsWithSameName.length + 1})`
           }
           this.userDocumentService.addUserDocument({

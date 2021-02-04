@@ -15,9 +15,8 @@
   <p routerLink='/landing' class="logo">texty</p>
   <nav class="nav-links">
     <ul>
-      <!-- <li>Hi {{loggedInUser.email}}</li> -->
-      <li *ngIf="userService.user$ | async">
-        <a (click)="logout()">Logout</a>
+      <li *ngIf="userService.user$ | async" style="cursor: pointer;">
+        <a (click)="logout()" >Logout</a>
       </li>
     </ul>
   </nav>
@@ -43,12 +42,3 @@
         </mat-card>
   </div>
 </section>
-
-<!-- 
-
-<div class="full-page bodybg-color">
-  <section class="top-bar">
-    <p routerLink='/landing' class="logo">texty</p>
-  </section>
-  
-</div> -->

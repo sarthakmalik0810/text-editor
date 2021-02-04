@@ -29,10 +29,8 @@ export class UserDocumentsService {
    return this.firestore.collection(STORES.DOCUMENTS).add(userObj);
   }
 
-  updateUserDocument(docId, htmlString){
-    return this.firestore.collection(STORES.DOCUMENTS).doc(docId).update({
-      htmlString: htmlString
-  });
+  updateUserDocument(docId, obj){
+    return this.firestore.collection(STORES.DOCUMENTS).doc(docId).update(obj);
   }
 
   deleteUserDocument(docId) {
