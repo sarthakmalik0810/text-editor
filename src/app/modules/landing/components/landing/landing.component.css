@@ -59,6 +59,10 @@ ul > li:hover {
   padding: 0 0.5rem;
   font-family: "Montserrat", sans-serif;
   color: #ffffff;
+  -webkit-user-select: none;  
+  -moz-user-select: none;    
+  -ms-user-select: none;      
+  user-select: none;
 }
 
 .intro {
@@ -72,7 +76,7 @@ ul > li:hover {
 
 .intro-row {
   width: 80%;
-  padding: 3rem;
+  padding: 2rem;
   height: 46vh;
   display: flex;
   justify-content: space-between;
@@ -99,7 +103,7 @@ ul > li:hover {
   font-weight: 700;
 }
 .intro-row > div > p {
-  font-size: larger;
+  font-size: 15px;
   font-family: "Montserrat", sans-serif;
   color: #ffffff;
 }
