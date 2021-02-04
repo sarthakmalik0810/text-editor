@@ -15,7 +15,7 @@
   <p routerLink='/landing' class="logo">texty</p>
   <nav class="nav-links">
     <ul>
-      <li>Hi {{loggedInUser.email}}</li>
+      <!-- <li>Hi {{loggedInUser.email}}</li> -->
       <li *ngIf="userService.user$ | async">
         <a (click)="logout()">Logout</a>
       </li>

@@ -40,6 +40,7 @@ export class DashboardHomeComponent implements OnInit {
     let account = await this.userService.signOut();
     if(account.bool) {
       this.snackbarService.open('Logged out');
+      this.router.navigate(['/landing']);
     }
   }
 

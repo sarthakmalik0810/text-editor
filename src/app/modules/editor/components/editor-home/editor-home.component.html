@@ -1,85 +1,69 @@
 <div class="full-page bg">
-   
-    <div class="d-flex justify-content-center">
-        <mat-toolbar color="#000000">
-            <mat-toolbar-row>
-                <span contenteditable (input)="getDocumentName($event.target.innerText)" style="border-color: white;">
-                    <h4>Untitled Document</h4>
-                </span>
-                <span>&nbsp;&nbsp;</span>
-              <span>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('bold');"><i class="fas fa-bold"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('italic');"><i class="fas fa-italic"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('underline');"><i class="fas fa-underline"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('strikeThrough');"><i class="fas fa-strikethrough"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('justifyLeft');"><i class="fas fa-align-left"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('justifyRight');"><i class="fas fa-align-right"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('justifyCenter');"><i class="fas fa-align-center"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('justifyFull');"><i class="fas fa-align-justify"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('cut');"><i class="fas fa-cut"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('paste');"><i class="fas fa-paste"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('copy');"><i class="fas fa-copy"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('indent');"><i class="fas fa-indent"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('outdent');"><i class="fas fa-outdent"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('subscript');"><i class="fas fa-subscript"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('superscript');"><i class="fas fa-superscript"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('undo');"><i class="fas fa-undo"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('redo');"><i class="fas fa-redo"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('insertUnorderedList');"><i class="fas fa-list-ul"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('insertOrderedList');"><i class="fas fa-list-ol"></i></button>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('insertParagraph');"><i class="fas fa-paragraph"></i></button>
-                <select (change)="execCmdWithArgs('formatBlock', $event.target.value)">
-                    <option value="H1">H1</option>
-                    <option value="H2">H2</option>
-                    <option value="H3">H3</option>
-                    <option value="H4">H4</option>
-                    <option value="H5">H5</option>
-                    <option value="H6">H6</option>
-                </select>
-                <button class="btn btn-default" style="color:white" (click)="execCmd('inSertHorizontalRule');">HR</button>
-                <!-- <button class="btn btn-default" style="color:white" (click)="execCmdWithArgs('createLink', prompt(''));"><i class="fas fa-link"></i></button> -->
-                <button class="btn btn-default" style="color:white" (click)="addLink();"><i class="fas fa-unlink"></i></button>
-                <!-- <button class="btn btn-default" style="color:white" (click)="toggleSource();"><i class="fas fa-code"></i></button> -->
-                <select (change)="execCmdWithArgs('fontName', $event.target.value)">
-                  <option value="Arial">Arial</option>
-                  <option value="Comic Sans MS">Comic Sans MS</option>
-                  <option value="Courier">Courier</option>
-                  <option value="Georgia">Georgia</option>
-                  <option value="Tahoma">Tahoma</option>
-                  <option value="Times New Roman">Times New Roman</option>
-                  <option value="Verdana">Verdana</option>
-                </select>
-                <select (change)="execCmdWithArgs('fontSize', $event.target.value)">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                </select>
-              </span>
-
-             
-              <span class="example-spacer"></span>
-              <button class="btn btn-default" style="color:white" (click)="saveHTML()">SAVE</button>
-            </mat-toolbar-row>
-              <mat-toolbar-row>
-                <span>
-                  Text Color: <input type="color" (change)="execCmdWithArgs('foreColor', $event.target.value)">
-                  Background: <input type="color" (change)="execCmdWithArgs('hiliteColor', $event.target.value)">
-                <!-- <button class="btn btn-default" style="color:white" (click)="execCmd('');"><i class="fas fa-file-image"></i></button> -->
-                <button class="btn btn-default" style="color:white" (click)="execCmd('selectAll');">Select All</button>
-                <button *ngIf="this.currentDocument" class="btn btn-default" style="color:white" (click)="deleteDoc()"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                </span>
-              </mat-toolbar-row>
-          </mat-toolbar>
-    </div>
-
+  <div class="d-flex justify-content-center">
+    <mat-toolbar color="#000000" class="resp">
+      <input type="text" style="width: 200px; margin: 10px; border: none" value="{{documentName}}" (input)="getDocumentName($event.target.value)">
+        <mat-toolbar-row>
+            <span>&nbsp;&nbsp;</span>
+          <span>
+            <button mat-raised-button matTooltip="bold" class="btn" [ngClass]="{'btn-default': bold, 'btn-primary':!bold }" style="color:white" (click)="bold=!bold;execCmd('bold');"><i class="fas fa-bold"></i></button>
+            <button mat-raised-button matTooltip="italic" class="btn" [ngClass]="{'btn-default': italic, 'btn-primary':!italic }" style="color:white" (click)="italic=!italic;execCmd('italic');"><i class="fas fa-italic"></i></button>
+            <button mat-raised-button matTooltip="underline" class="btn" [ngClass]="{'btn-default': underline, 'btn-primary':!underline }" style="color:white" (click)="underline=!underline;execCmd('underline');"><i class="fas fa-underline"></i></button>
+            <button mat-raised-button matTooltip="strikeThrough" class="btn" [ngClass]="{'btn-default': strikeThrough, 'btn-primary':!strikeThrough }" style="color:white" (click)="strikeThrough=!strikeThrough; execCmd('strikeThrough');"><i class="fas fa-strikethrough"></i></button>
+            <button mat-raised-button matTooltip="justifyLeft" class="btn" [ngClass]="{'btn-default': justifyLeft, 'btn-primary':!justifyLeft }" style="color:white" (click)="justifyLeft=!justifyLeft; execCmd('justifyLeft');"><i class="fas fa-align-left"></i></button>
+            <button mat-raised-button matTooltip="justifyRight" class="btn" [ngClass]="{'btn-default': justifyRight, 'btn-primary':!justifyRight }" style="color:white" (click)="justifyRight=!justifyRight; execCmd('justifyRight');"><i class="fas fa-align-right"></i></button>
+            <button mat-raised-button matTooltip="justifyCenter" class="btn" [ngClass]="{'btn-default': justifyCenter, 'btn-primary':!justifyCenter }" style="color:white" (click)="justifyCenter = !justifyCenter; execCmd('justifyCenter');"><i class="fas fa-align-center"></i></button>
+            <button mat-raised-button matTooltip="justifyFull" class="btn" [ngClass]="{'btn-default': justifyFull, 'btn-primary':!justifyFull }" style="color:white" (click)="justifyFull=!justifyFull; execCmd('justifyFull');"><i class="fas fa-align-justify"></i></button>
+            <button mat-raised-button matTooltip="cut" class="btn btn-default"style="color:white" (click)="execCmd('cut');"><i class="fas fa-cut"></i></button>
+            <button mat-raised-button matTooltip="paste" class="btn btn-default" style="color:white" (click)="execCmd('paste');"><i class="fas fa-paste"></i></button>
+            <button mat-raised-button matTooltip="copy" class="btn btn-default" style="color:white" (click)="execCmd('copy');"><i class="fas fa-copy"></i></button>
+            <button mat-raised-button matTooltip="indent" class="btn" [ngClass]="{'btn-default': indent, 'btn-primary':!indent }" style="color:white" (click)="indent=!indent; execCmd('indent');"><i class="fas fa-indent"></i></button>
+            <button mat-raised-button matTooltip="outdent" class="btn" [ngClass]="{'btn-default': outdent, 'btn-primary':!outdent }" style="color:white" (click)="outdent=!outdent; execCmd('outdent');"><i class="fas fa-outdent"></i></button>
+            <button mat-raised-button matTooltip="subscript" class="btn btn-default" style="color:white" (click)="execCmd('subscript');"><i class="fas fa-subscript"></i></button>
+            <button mat-raised-button matTooltip="superscript" class="btn btn-default" style="color:white" (click)="execCmd('superscript');"><i class="fas fa-superscript"></i></button>
+            <button mat-raised-button matTooltip="undo" class="btn btn-default"style="color:white" (click)="execCmd('undo');"><i class="fas fa-undo"></i></button>
+            <button mat-raised-button matTooltip="redo" class="btn btn-default" style="color:white" (click)="execCmd('redo');"><i class="fas fa-redo"></i></button>
+            <button mat-raised-button matTooltip="unordered list" class="btn" [ngClass]="{'btn-default': insertUnorderedList, 'btn-primary':!insertUnorderedList }" style="color:white" (click)="insertUnorderedList=!insertUnorderedList; execCmd('insertUnorderedList');"><i class="fas fa-list-ul"></i></button>
+            <button mat-raised-button matTooltip="ordered list" class="btn" [ngClass]="{'btn-default': insertOrderedList, 'btn-primary':!insertOrderedList }" style="color:white" (click)="insertOrderedList=!insertOrderedList; execCmd('insertOrderedList');"><i class="fas fa-list-ol"></i></button>
+            <button mat-raised-button matTooltip="paragraph" class="btn" [ngClass]="{'btn-default': insertParagraph, 'btn-primary':!insertParagraph }" style="color:white" (click)="insertParagraph=!insertParagraph; execCmd('insertParagraph');"><i class="fas fa-paragraph"></i></button>
+            <select (change)="execCmdWithArgs('formatBlock', $event.target.value)">
+                <option value="H1">H1</option>
+                <option value="H2">H2</option>
+                <option value="H3">H3</option>
+                <option value="H4">H4</option>
+                <option value="H5">H5</option>
+                <option value="H6">H6</option>
+            </select>
+            <button mat-raised-button matTooltip="Horizontal line" class="btn" [ngClass]="{'btn-default': inSertHorizontalRule, 'btn-primary':!inSertHorizontalRule }" style="color:white" (click)="inSertHorizontalRule=!inSertHorizontalRule;execCmd('inSertHorizontalRule')">HR</button>
+            <!-- <button class="btn btn-default" style="color:white" (click)="execCmdWithArgs('createLink', prompt(''));"><i class="fas fa-link"></i></button> -->
+            <button mat-raised-button matTooltip="add link" class="btn btn-default" style="color:white" (click)="addLink();"><i class="fas fa-unlink"></i></button>
+            <!-- <button class="btn btn-default" style="color:white" (click)="toggleSource();"><i class="fas fa-code"></i></button> -->
+            <select (change)="execCmdWithArgs('fontName', $event.target.value)">
+              <option *ngFor="let font of fonts" value={{font}}>
+                {{font}}
+              </option>
+            </select>
+            &nbsp;&nbsp;
+            <select (change)="execCmdWithArgs('fontSize', $event.target.value)">
+              <option *ngFor="let size of fontSizes" value={{size}}>
+                {{size}}
+              </option>
+            </select>
+          </span>
+          <span class="example-spacer"></span>
+          <button class="btn btn-default" style="color:white" (click)="saveHTML()">SAVE</button>
+        </mat-toolbar-row>
+          <mat-toolbar-row>
+            <span>
+              Text Color: <input type="color" (change)="execCmdWithArgs('foreColor', $event.target.value)">
+              Background: <input type="color" (change)="execCmdWithArgs('hiliteColor', $event.target.value)">
+            <!-- <button class="btn btn-default" style="color:white" (click)="execCmd('');"><i class="fas fa-file-image"></i></button> -->
+            <button class="btn btn-default" style="color:white" (click)="execCmd('selectAll');">Select All</button>
+            <button mat-raised-button matTooltip="delete" *ngIf="this.currentDocument" class="btn btn-default" style="color:white" (click)="deleteDoc()"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </span>
+          </mat-toolbar-row>
+      </mat-toolbar>
+</div>
+    
       <div class="d-flex justify-content-center" style="height:100%">
         <iframe  name="textEditor" class="text-editor" spellcheck="true">
         <body></body>

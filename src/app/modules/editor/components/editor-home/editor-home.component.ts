@@ -4,6 +4,7 @@ import { UserDocumentsService } from '../../../../services/user-documents.servic
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 
+
 @Component({
   selector: 'app-editor-home',
   templateUrl: './editor-home.component.html',
@@ -19,12 +20,76 @@ export class EditorHomeComponent implements OnInit {
     private snackbarService: SnackbarService
     
   ) {}
-
+  
   loggedInUser;
   defaultDocumentName = 'Untitled Document';
   documentName;
   currentDocument;
   editorPane;
+  fonts = [
+    'Times New Roman',
+    'Arial',
+    'Comic Sans MS',
+    'Courier',
+    'Georgia',
+    'Tahoma',
+    'Verdana'
+  ]
+
+  fontSizes = [
+    3, 4, 5, 8, 9, 10, 11, 12, 14, 18, 24, 30, 36, 48, 60, 72, 96
+  ]
+
+  //buttons
+  
+  bold = true;
+  italic = true;
+  underline = true;
+  strikeThrough = true;
+  justifyLeft = true;
+  justifyRight = true;
+  justifyCenter = true;
+  justifyFull = true;
+  cut = true;
+  paste = true;
+  copy = true;
+  indent = true;
+  outdent = true;
+  subscript = true;
+  superscript = true;
+  undo = true;
+  redo = true;
+  insertUnorderedList = true;
+  insertOrderedList = true;
+  insertParagraph = true;
+  inSertHorizontalRule = true;
+
+  menuItems= [
+    {
+      label: 'Sign Up',
+      icon: 'login'
+    },
+    {
+      label: 'About',
+      icon: 'help'
+    },
+    {
+      label: 'Pricing',
+      icon: 'attach_money'
+    },
+    {
+      label: 'Docs',
+      icon: 'notes'
+    },
+    {
+      label: 'Showcase',
+      icon: 'slideshow'
+    },
+    {
+      label: 'Blog',
+      icon: 'rss_feed'
+    },
+  ];
 
  
   ngOnInit(): void {
@@ -33,6 +98,7 @@ export class EditorHomeComponent implements OnInit {
       this.currentDocument = res.docId;
       this.userDocumentService.findDocument(this.currentDocument).subscribe((res) => {
         this.editorPane.getElementsByTagName('body')[0].innerHTML = res.docs[0].data()['htmlString'];
+        this.documentName = res.docs[0].data()['documentName'];
       })
       })
     this.documentName = this.defaultDocumentName;
@@ -46,33 +112,20 @@ export class EditorHomeComponent implements OnInit {
     this.editorPane.execCommand(command, false, null);
   }
 
-  openExistingHTML(){
-
-  }
 
   execCmdWithArgs(command, arg){
     this.editorPane.execCommand(command, false, arg);
   }
   
   addLink(){
-      // var linkURL = ''
-      // var sText = this.editorPane.getSelection();
-
-      // this.editorPane.execCommand('insertHTML', false, '<a href="' + linkURL + '" target="_blank">' + sText + '</a>');
       var url = prompt('Enter a URL:', 'http://');
       this.editorPane.execCommand('createLink', true, url);
       var selection = this.editorPane.getSelection();
       selection.anchorNode.parentElement.target = '_blank';
-
-
-  
-  }
-  toggleSource(){
-    
   }
 
   getDocumentName(docName){
-    this.documentName = docName
+    this.documentName = docName;
   }
 
   saveHTML(){
@@ -87,7 +140,10 @@ export class EditorHomeComponent implements OnInit {
           res.docs.forEach(element => {
             docsWithSameName.push(element.data())
           });
+          console.log(docsWithSameName);
           if(docsWithSameName.length){
+            console.log('inside');
+
             this.documentName = `${this.documentName}(${docsWithSameName.length + 1})`
           }
           this.userDocumentService.addUserDocument({
