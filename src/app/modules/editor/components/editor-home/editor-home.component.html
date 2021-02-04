@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-center">
     <mat-toolbar color="#000000" class="resp">
       <span>
-        <button mat-raised-button matTooltip="back to dashboard" class="btn btn-default" style="color:white" (click)="checkSaved()" [routerLink]="'/dashboard'" ><i class="fas fa-arrow-left"></i></button>
+        <button mat-raised-button matTooltip="back to dashboard" class="btn btn-default" style="color:white" (click)="checkSaved()"><i class="fas fa-arrow-left"></i></button>
       <input type="text" style="width: 200px; margin: 10px; border: none" value="{{documentName}}" (input)="getDocumentName($event.target.value)">
       <p *ngIf="lastSaved" style="display: inline;">Last saved: {{lastSaved | date : 'medium'}}</p>
       </span>
@@ -18,9 +18,9 @@
             <button mat-raised-button matTooltip="justifyRight" class="btn" [ngClass]="{'btn-default': justifyRight, 'btn-primary':!justifyRight }" style="color:white" (click)="justifyRight=!justifyRight; execCmd('justifyRight');"><i class="fas fa-align-right"></i></button>
             <button mat-raised-button matTooltip="justifyCenter" class="btn" [ngClass]="{'btn-default': justifyCenter, 'btn-primary':!justifyCenter }" style="color:white" (click)="justifyCenter = !justifyCenter; execCmd('justifyCenter');"><i class="fas fa-align-center"></i></button>
             <button mat-raised-button matTooltip="justifyFull" class="btn" [ngClass]="{'btn-default': justifyFull, 'btn-primary':!justifyFull }" style="color:white" (click)="justifyFull=!justifyFull; execCmd('justifyFull');"><i class="fas fa-align-justify"></i></button>
-            <button mat-raised-button matTooltip="cut" class="btn btn-default"style="color:white" (click)="execCmd('cut');"><i class="fas fa-cut"></i></button>
-            <button mat-raised-button matTooltip="paste" class="btn btn-default" style="color:white" (click)="execCmd('paste');"><i class="fas fa-paste"></i></button>
-            <button mat-raised-button matTooltip="copy" class="btn btn-default" style="color:white" (click)="execCmd('copy');"><i class="fas fa-copy"></i></button>
+            <button mat-raised-button matTooltip="cut" class="btn btn-default"style="color:white" (click)="cutCopyText();execCmd('cut')"><i class="fas fa-cut"></i></button>
+            <button mat-raised-button matTooltip="paste" class="btn btn-default" style="color:white" (click)="pasteText()"><i class="fas fa-paste"></i></button>
+            <button mat-raised-button matTooltip="copy" class="btn btn-default" style="color:white" (click)="cutCopyText();"><i class="fas fa-copy"></i></button>
             <button mat-raised-button matTooltip="indent" class="btn" [ngClass]="{'btn-default': indent, 'btn-primary':!indent }" style="color:white" (click)="indent=!indent; execCmd('indent');"><i class="fas fa-indent"></i></button>
             <button mat-raised-button matTooltip="outdent" class="btn" [ngClass]="{'btn-default': outdent, 'btn-primary':!outdent }" style="color:white" (click)="outdent=!outdent; execCmd('outdent');"><i class="fas fa-outdent"></i></button>
             <button mat-raised-button matTooltip="subscript" class="btn btn-default" style="color:white" (click)="execCmd('subscript');"><i class="fas fa-subscript"></i></button>
@@ -29,7 +29,7 @@
             <button mat-raised-button matTooltip="redo" class="btn btn-default" style="color:white" (click)="execCmd('redo');"><i class="fas fa-redo"></i></button>
             <button mat-raised-button matTooltip="unordered list" class="btn" [ngClass]="{'btn-default': insertUnorderedList, 'btn-primary':!insertUnorderedList }" style="color:white" (click)="insertUnorderedList=!insertUnorderedList; execCmd('insertUnorderedList');"><i class="fas fa-list-ul"></i></button>
             <button mat-raised-button matTooltip="ordered list" class="btn" [ngClass]="{'btn-default': insertOrderedList, 'btn-primary':!insertOrderedList }" style="color:white" (click)="insertOrderedList=!insertOrderedList; execCmd('insertOrderedList');"><i class="fas fa-list-ol"></i></button>
-            <button mat-raised-button matTooltip="paragraph" class="btn" [ngClass]="{'btn-default': insertParagraph, 'btn-primary':!insertParagraph }" style="color:white" (click)="insertParagraph=!insertParagraph; execCmd('insertParagraph');"><i class="fas fa-paragraph"></i></button>
+            <!-- <button mat-raised-button matTooltip="paragraph" class="btn" [ngClass]="{'btn-default': insertParagraph, 'btn-primary':!insertParagraph }" style="color:white" (click)="insertParagraph=!insertParagraph; execCmd('insertParagraph');"><i class="fas fa-paragraph"></i></button> -->
             <select (change)="execCmdWithArgs('formatBlock', $event.target.value)">
                 <option value="H1">H1</option>
                 <option value="H2">H2</option>
@@ -38,9 +38,9 @@
                 <option value="H5">H5</option>
                 <option value="H6">H6</option>
             </select>
-            <button mat-raised-button matTooltip="Horizontal line" class="btn" [ngClass]="{'btn-default': inSertHorizontalRule, 'btn-primary':!inSertHorizontalRule }" style="color:white" (click)="inSertHorizontalRule=!inSertHorizontalRule;execCmd('inSertHorizontalRule')">HR</button>
+            <!-- <button mat-raised-button matTooltip="Horizontal line" class="btn" [ngClass]="{'btn-default': inSertHorizontalRule, 'btn-primary':!inSertHorizontalRule }" style="color:white" (click)="inSertHorizontalRule=!inSertHorizontalRule;execCmd('inSertHorizontalRule')">HR</button> -->
             <!-- <button class="btn btn-default" style="color:white" (click)="execCmdWithArgs('createLink', prompt(''));"><i class="fas fa-link"></i></button> -->
-            <button mat-raised-button matTooltip="add link" class="btn btn-default" style="color:white" (click)="addLink();"><i class="fas fa-unlink"></i></button>
+            <!-- <button mat-raised-button matTooltip="add link" class="btn btn-default" style="color:white" (click)="addLink();"><i class="fas fa-unlink"></i></button> -->
             <!-- <button class="btn btn-default" style="color:white" (click)="toggleSource();"><i class="fas fa-code"></i></button> -->
             <select (change)="execCmdWithArgs('fontName', $event.target.value)">
               <option *ngFor="let font of fonts" value={{font}}>

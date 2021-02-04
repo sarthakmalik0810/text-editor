@@ -38,7 +38,7 @@ export class EditorHomeComponent implements OnInit, OnDestroy {
   ]
 
   fontSizes = [
-    3, 4, 5, 8, 9, 10, 11, 12, 14, 18, 24, 30, 36, 48, 60, 72, 96
+    3, 4, 5, 8, 9, 10, 11, 12, 14
   ]
 
   //buttons
@@ -71,10 +71,13 @@ export class EditorHomeComponent implements OnInit, OnDestroy {
   saved = false;
   lastSaved;
 
+  cutSelection;
+
  
   ngOnInit(): void {
     this.editorPane = document.getElementsByTagName('iframe')[0].contentDocument || document.getElementsByTagName('iframe')[0].contentWindow.document;
     this.editorPane.getElementsByTagName('body')[0].style.wordBreak = 'break-word';
+    this.editorPane.getElementsByTagName('body')[0].style.fontFamily = 'Times New Roman';
     this.documentName = this.defaultDocumentName;
     const qp = this.ar.snapshot.queryParams;
       this.mode = qp.mode;
@@ -123,19 +126,27 @@ export class EditorHomeComponent implements OnInit, OnDestroy {
     if(this.saved === false){
       c = confirm('Your changes are not saved, do you want to save it before navigating to dashboard??');
       if(c){
+        console.log(c);
         this.userDocumentService.updateUserDocument(this.currentDocument, {htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML, documentName: this.documentName,
         uploadDate: new Date().toString()
       });
         this.snackbarService.openSnackbarWithStyle('Document updated successfully', 'green-snackbar');
-      }
-      else{
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/dashboard']);
       }
     }
   }
 
   execCmd(command){
     this.editorPane.execCommand(command, false, null);
+  }
+
+  cutCopyText(arg){
+    this.cutSelection = this.editorPane.getSelection().toString();
+  }
+
+
+  pasteText(){
+      this.editorPane.execCommand("insertText", false, this.cutSelection);
   }
 
 
