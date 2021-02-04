@@ -1,27 +1,23 @@
-# TextEditor
+# Live Demo
+[GitHub Pages](https://sarthakmalik0810.github.io/text-editor/landing)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.4.
+## How to clone this project Locally
 
-## Development server
+Open cmd/terminal/GitCLI. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `git clone https://github.com/sarthakmalik0810/text-editor.git`
 
-## Code scaffolding
+Move to project directory-
+`cd text-editor`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Install all dependencies using npm-
+`npm i`
 
-## Build
+Run locally in browser
+`ng serve`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Contributors
 
-## Running unit tests
+[Sarthak Malik](https://github.com/sarthakmalik0810)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+[Mayank Sethi](https://github.com/mayanksethi97)
