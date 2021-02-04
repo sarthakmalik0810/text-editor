@@ -14,7 +14,7 @@
 <section class="top-bar">
   <p routerLink='/landing' class="logo">texty</p>
   <nav class="nav-links">
-    <ul>
+    <ul style="margin-bottom: 0 !important;">
       <li *ngIf="userService.user$ | async" style="cursor: pointer;">
         <a (click)="logout()" >Logout</a>
       </li>
