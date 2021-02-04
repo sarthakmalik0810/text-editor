@@ -4,6 +4,7 @@
       <span>
         <button mat-raised-button matTooltip="back to dashboard" class="btn btn-default" style="color:white" (click)="checkSaved()" [routerLink]="'/dashboard'" ><i class="fas fa-arrow-left"></i></button>
       <input type="text" style="width: 200px; margin: 10px; border: none" value="{{documentName}}" (input)="getDocumentName($event.target.value)">
+      <p *ngIf="lastSaved" style="display: inline;">Last saved: {{lastSaved | date : 'medium'}}</p>
       </span>
       
         <mat-toolbar-row>
