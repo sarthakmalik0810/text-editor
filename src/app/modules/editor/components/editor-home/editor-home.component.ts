@@ -170,9 +170,10 @@ export class EditorHomeComponent implements OnInit, OnDestroy {
   }
 
   saveHTML(){
+    this.saved = true;
     if(this.loggedInUser){
       this.lastSaved = new Date().toString();
-      this.saved = true;
+      
       if(this.currentDocument){
         this.userDocumentService.updateUserDocument(this.currentDocument, {htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML, documentName: this.documentName,
         uploadDate: new Date().toString()

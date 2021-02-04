@@ -24,3 +24,21 @@
     position: relative;
 }
 
+
+@media only screen and (max-width: 480px) {
+    
+    .text-editor{
+        width: 60%; 
+        height: 90%; 
+        background-color: #f7f7f7;
+        margin-top: 20px;
+        border:none;
+        padding: 20px;
+        box-shadow: 5px 5px 5px 5px #888;
+    }
+    
+    .res{
+        
+    }
+  }
+
