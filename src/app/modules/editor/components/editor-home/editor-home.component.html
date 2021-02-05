@@ -3,7 +3,7 @@
     <mat-toolbar color="#000000" class="resp" style="display: flex; flex-wrap: wrap;">
       <mat-toolbar-row>
       <span  style="display: flex; flex-wrap: wrap;">
-        <button mat-raised-button matTooltip="back to dashboard" class="btn btn-default" style="color:white" (click)="navigateBack('dashboard')"><i class="fas fa-arrow-left"></i></button>
+        <button *ngIf="this.currentDocument" mat-raised-button matTooltip="back to dashboard" class="btn btn-default" style="color:white" (click)="navigateBack('dashboard')"><i class="fas fa-arrow-left"></i></button>
         <button mat-raised-button matTooltip="home" class="btn btn-default" style="color:white" (click)="navigateBack('landing')"><i class="fa fa-home" aria-hidden="true"></i></button>
         
      
