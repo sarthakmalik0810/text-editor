@@ -131,7 +131,7 @@ export class EditorHomeComponent implements OnInit, OnDestroy {
     this.userDocumentService.updateUserDocument(this.currentDocument, {htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML, documentName: this.documentName,
     uploadDate: new Date().toString()});
     this.snackbarService.openSnackbarWithStyle('Document updated successfully', 'green-snackbar');
-    this.router.navigate(['/dashboard']);
+    this.router.navigate([`/${route}`]);
   }
 
 
