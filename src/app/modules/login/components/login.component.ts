@@ -34,8 +34,16 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private snackbarService: SnackbarService,
     private ar: ActivatedRoute,
-    private userDocumentService: UserDocumentsService
+    // private userDocumentService: UserDocumentsService
   ) {}
+
+  ngOnInit(): void {
+    this.initLoginForm();
+    this.initSignUpForm();
+    this.ar.queryParams.subscribe((res: any) => {
+      this.loggedInStatus = res['loggedIn']
+    })
+  }
 
   async signInHandler() {
     if (this.login.invalid) {
@@ -56,7 +64,6 @@ export class LoginComponent implements OnInit {
     if(res.bool) {
       if(this.loggedInStatus == 'false'){
         this.router.navigate(['/editor'], {queryParams: {mode: 'get_saved'}, skipLocationChange: true});
-        this.userDocumentService.setTakeFromLocatlStorage(true);
       }
       else{
         this.router.navigate(['/dashboard']);
@@ -101,15 +108,6 @@ export class LoginComponent implements OnInit {
     this.signUp.reset();
   }
 
-  ngOnInit(): void {
-    this.initLoginForm();
-    this.initSignUpForm();
-    this.ar.queryParams.subscribe((res: any) => {
-      this.loggedInStatus = res['loggedIn']
-      console.log(res);
-      console.log(this.loggedInStatus);
-    })
-  }
 
   initLoginForm() {
     this.login = this.formBuilder.group({
@@ -150,15 +148,6 @@ export class LoginComponent implements OnInit {
     };
   }
 
-  // addUser(userId, password) {
-  //   const userObj: IUsers = {
-  //     userName: userId,
-  //     password: password,
-  //   };
-  //   console.log(userObj);
-  //   this.usersFirebaseService.addUser(userObj);
-  // }
-
   openSnackBar(message: string) {
     this.snackbar.open(message, 'X', { duration: 2000 });
   }
@@ -188,13 +177,12 @@ export class LoginComponent implements OnInit {
         this.snackbarService.openSnackbarWithStyle('Email already exists! Please Sign in!', 'red-snackbar');
         return;
       } else {
-        // this.addUser(email,password);
         this.usersFirebaseService.createUserAuth(email, password);
         this.snackbarService.openSnackbarWithStyle('Successfully registered! Kindly login', 'green-snackbar');
         this.signInForm = true;
         this.login.reset();
         this.signUp.reset();
-        this.router.navigate(['/dashboard']);
+        // this.router.navigate(['/dashboard']);
       }
     });
   }

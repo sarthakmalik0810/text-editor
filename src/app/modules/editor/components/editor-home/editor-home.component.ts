@@ -127,20 +127,13 @@ export class EditorHomeComponent implements OnInit, OnDestroy {
    
   }
 
-  checkSaved(){
-    let c;
-    if(this.saved === false){
-      c = confirm('Your changes are not saved, do you want to save it before navigating to dashboard??');
-      if(c){
-        console.log(c);
-        this.userDocumentService.updateUserDocument(this.currentDocument, {htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML, documentName: this.documentName,
-        uploadDate: new Date().toString()
-      });
-        this.snackbarService.openSnackbarWithStyle('Document updated successfully', 'green-snackbar');
-        this.router.navigate(['/dashboard']);
-      }
-    }
+  navigateBack(route){
+    this.userDocumentService.updateUserDocument(this.currentDocument, {htmlString: this.editorPane.getElementsByTagName('body')[0].innerHTML, documentName: this.documentName,
+    uploadDate: new Date().toString()});
+    this.snackbarService.openSnackbarWithStyle('Document updated successfully', 'green-snackbar');
+    this.router.navigate(['/dashboard']);
   }
+
 
   execCmd(command){
     this.editorPane.execCommand(command, false, null);
